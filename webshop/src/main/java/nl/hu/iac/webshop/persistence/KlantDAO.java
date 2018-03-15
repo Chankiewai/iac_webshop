@@ -66,7 +66,7 @@ public class KlantDAO extends BaseDAO {
 		try (Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
 			String query = "DELETE FROM Klant where klant_id = "+ Klant.getKlantId();
-			//2de query? 
+			//2de query?
 			stmt.executeQuery(query);
 			
 			System.out.println(Klant.getKlantId());
