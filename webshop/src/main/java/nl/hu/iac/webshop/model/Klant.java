@@ -3,7 +3,7 @@ package nl.hu.iac.webshop.model;
 public class Klant {
 	private int klant_id;
 	private String naam;
-	private Adres adres;
+	private Adres adres; 
 	
 	public Klant(int klant_id, String naam){
 		this.klant_id = klant_id;

@@ -27,7 +27,7 @@ public class AdresDAO extends BaseDAO {
 		} catch (SQLException sqle) { sqle.printStackTrace(); }
 		return results;
 	}
-	//create
+	
 	public Adres save(Adres Adres) {
 		try (Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
