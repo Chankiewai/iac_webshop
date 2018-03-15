@@ -39,10 +39,10 @@ public class ProductDAO extends BaseDAO {
 	}
 	
 	public List<Product> findAll() {
-		return selectProducts("SELECT product_id, product_naam, product_omschrijving, product_prijs, product_plaatje FROM Product");
+		return selectProducts("SELECT product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id FROM product");
 	}
 	
 	public Product findById(String code){
-		return selectProducts("SELECT product_id, product_naam, product_omschrijving, product_prijs, product_plaatje FROM Product where product_id = " + code).get(0);
+		return selectProducts("SELECT product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id FROM product where product_id = " + code).get(0);
 	}
 }
