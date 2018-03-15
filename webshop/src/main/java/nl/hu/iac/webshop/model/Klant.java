@@ -5,9 +5,10 @@ public class Klant {
 	private String naam;
 	private Adres adres;
 	
-	public Klant(int klant_id, String naam){
+	public Klant(int klant_id, String naam, Adres adres){
 		this.klant_id = klant_id;
 		this.naam = naam;
+		this.adres = adres;
 	}
 
 	public int getKlantId() {
