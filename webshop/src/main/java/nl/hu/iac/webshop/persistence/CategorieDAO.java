@@ -31,10 +31,10 @@ public class CategorieDAO extends BaseDAO {
 	}
 	
 	public List<Categorie> findAll() {
-		return selectCategories("SELECT categorie_id, categorie_naam, categorie_omschrijving, categorie_plaatje FROM Categorie");
+		return selectCategories("SELECT categorie_id, categorie_naam, categorie_omschrijving, categorie_plaatje FROM categorie");
 	}
 	
 	public Categorie findById(int code){
-		return selectCategories("SELECT categorie_id, categorie_naam, categorie_omschrijving, categorie_plaatje FROM Categorie where categorie_id = " + code).get(0);
+		return selectCategories("SELECT categorie_id, categorie_naam, categorie_omschrijving, categorie_plaatje FROM categorie where categorie_id = " + code).get(0);
 	}
 }
