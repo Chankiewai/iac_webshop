@@ -8,13 +8,12 @@ public class Product {
 	private String product_plaatje;
 	private Categorie categorie;
 	
-	public Product(int product_id, String product_naam, String product_omschrijving, double product_prijs, String product_plaatje, Categorie categorie){
+	public Product(int product_id, String product_naam, String product_omschrijving, double product_prijs, String product_plaatje){
 		this.product_id = product_id;
 		this.product_naam = product_naam;
 		this.product_omschrijving = product_omschrijving;
 		this.product_prijs = product_prijs;
 		this.product_plaatje = product_plaatje;
-		this.categorie = categorie;
 		
 	}
 
