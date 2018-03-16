@@ -1,6 +1,7 @@
 package nl.hu.iac.webshop.persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,14 +29,22 @@ public class AdresDAO extends BaseDAO {
 		return results;
 	}
 	//create
-	public Adres save(Adres Adres) {
+	public Adres save(String straat, int huisnummer, String postcode, String plaats) {
 		try (Connection con = super.getConnection()){
-			Statement stmt = con.createStatement();
+			/*Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO Adres VALUES ('" + Adres.getPostcode() + "', '" + Adres.getAdresId() + "', '" + Adres.getHuisnummer() + "', '" + Adres.getStraat() + "', " + Adres.getPlaats() + "')");
+			System.out.println("Adres is toegevoegd!");*/
+			PreparedStatement ps = con.prepareStatement("INSERT INTO Adres(adres_id, straat, huisnummer, postcode, plaats) VALUES (adres_seq.nextval,?,?,?,?)");
+			ps.setString(1, straat);
+			ps.setInt(2, huisnummer);
+			ps.setString(3, postcode);
+			ps.setString(4, plaats);
+			
+			ps.executeQuery();
 			System.out.println("Adres is toegevoegd!");
 
 		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
-		return Adres;
+		return null;
 	}
 
 	public List<Adres> findAll() {
@@ -47,27 +56,34 @@ public class AdresDAO extends BaseDAO {
 	}
 
 	
-	public Adres updateAdres(Adres Adres) {
+	public Adres updateAdres(String straat, int huisnummer, String postcode, String plaats, int adres_id) {
 		try (Connection con = super.getConnection()){
-			Statement stmt = con.createStatement();
-			String query = "UPDATE Adres SET huisnummer = "+ Adres.getHuisnummer() +", plaats = '" + Adres.getPlaats() + "', postcode = '"+ Adres.getPostcode() +"', straat = '" + Adres.getStraat() + "' WHERE adres_id = " + Adres.getAdresId();
-			stmt.executeQuery(query);
+			PreparedStatement ps = con.prepareStatement("UPDATE Adres SET huisnummer = ?, plaats = ?, postcode = ?, straat = ? WHERE adres_id = ?");
+			/*String query = "UPDATE Adres SET huisnummer = "+ Adres.getHuisnummer() +", plaats = '" + Adres.getPlaats() + "', postcode = '"+ Adres.getPostcode() +"', straat = '" + Adres.getStraat() + "' WHERE adres_id = " + Adres.getAdresId();
+			stmt.executeQuery(query);*/
+			ps.setString(1, straat);
+			ps.setInt(2, huisnummer);
+			ps.setString(3, postcode);
+			ps.setString(4, plaats);
+			ps.setInt(5, adres_id);
 			
-			System.out.println(Adres.getAdresId());
+			ps.executeQuery();
+			System.out.println("adres is geupdated!");
 			
 		} catch (SQLException sqle) { sqle.printStackTrace(); }
-		return Adres;
+		return null;
 	}
 
-	public Adres deleteByCode(Adres Adres) {
+	public Adres deleteByCode(int adres_id) {
 		try (Connection con = super.getConnection()){
-			Statement stmt = con.createStatement();
-			String query = "DELETE FROM Adres where adres_id = "+ Adres.getAdresId();
-			stmt.executeQuery(query);
+			PreparedStatement ps = con.prepareStatement("DELETE FROM Adres where adres_id = ?");
+			ps.setInt(1, adres_id);
+					
+			ps.executeQuery();
 			
-			System.out.println(Adres.getAdresId());
+			System.out.println("adres is verwijderd!");
 			
 		} catch (SQLException sqle) { sqle.printStackTrace(); }
-		return Adres;
+		return null;
 	}	
 }
