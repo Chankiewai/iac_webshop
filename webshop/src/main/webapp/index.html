@@ -26,8 +26,6 @@
 <script>
 $(document).ready(function(){
 	
-	console.log('test dit is een console log')
-	
 	$.ajax({
 		method : 'GET',
 		url : 'restservices/categorie',
@@ -39,9 +37,11 @@ $(document).ready(function(){
 			});
 		},
 		error : function() {
-			alert('Fail!');
+			var body = "<p>Er zijn geen categorieen beschikbaar</p>";
+			$('.categorie-link').append(body);
 		}
 	});
+	
 });
 </script>
 
