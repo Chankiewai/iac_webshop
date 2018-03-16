@@ -9,6 +9,7 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -47,6 +48,18 @@ public class ProductResource {
 		}
 		JsonArray array = jab.build();
 		return array.toString();
+	}
+	
+	@POST
+	@Produces("application/json")
+	public void createProduct(@FormParam("naam") String naam,
+								 @FormParam("omschrijving") String omschrijving,
+								 @FormParam("prijs") double prijs,
+								 @FormParam("plaatje") String plaatje) {
+		
+		Product newProduct = new Product(naam, omschrijving, prijs, plaatje);
+
+		productDAO.productToevoegen(newProduct);
 	}
 	
 }

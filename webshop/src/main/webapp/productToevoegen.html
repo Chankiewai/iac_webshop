@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Product toevoegen</title>
 </head>
 <body>
-
+	<form id="productToevoegen">
+			<div class="form-group">
+			<label for="nm">Product naam: </label> 
+			<input type="text" class="form-control" name="naam" id="naam"><br /> 
+			</div>
+			<div class="form-group">
+			<label for="om">Product omschrijving: </label> 
+			<input type="text" class="form-control" name="omschrijving" id="omschrijving"><br /> 
+			</div>
+			<div class="form-group">
+			<label for="pr">Product prijs: </label> 
+			<input type="number" class="form-control" name="prijs" id="prijs"><br /> 
+			</div>
+			<div class="form-group">
+			<label for="pl">Product plaatje: </label> 
+			<input type="text" class="form-control" name="plaatje" id="plaatje"><br /> 
+			</div>
+			<a href=""><input type="button" id="post" class="btn btn-success" value="Toevoegen"></a>
+		</form>
 </body>
+
+<script>
+	$("#post").click(
+			function() {
+				console.log('ik word geklikt');
+				var data = $("#productToevoegen").serialize();
+				$.post("restservices/product", data, function() {
+					
+				});
+			});
+</script>
+
 </html>

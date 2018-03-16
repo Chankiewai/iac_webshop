@@ -45,4 +45,16 @@ public class ProductDAO extends BaseDAO {
 	public Product findById(String code){
 		return selectProducts("SELECT product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id FROM product where product_id = " + code).get(0);
 	}
+	
+	public Product productToevoegen(Product product) {
+		try (Connection con = super.getConnection()){
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO product(product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id) VALUES ('" + product.getProductNaam() + "', '" + product.getProductOmschrijving() + "', " + product.getProductPrijs() + " ,'" + product.getProductPlaatje() + "', 1)";
+			stmt.executeUpdate(query);
+			
+			System.out.println("Product is toegevoegd!");
+
+		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
+		return product;
+	}
 }
