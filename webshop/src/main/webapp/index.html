@@ -2,13 +2,13 @@
 <html>
 <title>'t virtuele winkeltje</title>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div id="frame">
 		<div id="menu">
-			<a href="xxx.html">link</a><br>
-			<a href="xxx.html">link</a><br>
+			<div class='categorie-link'></div>
 		</div>
 		<div id="main">
 			<h1>Welkom bij 't virtuele winkeltje!</h1>
@@ -22,4 +22,27 @@
 		</div>
 	</div>
 </body>
+
+<script>
+$(document).ready(function(){
+	
+	console.log('test dit is een console log')
+	
+	$.ajax({
+		method : 'GET',
+		url : 'restservices/categorie',
+		mimeType : 'json',
+		success : function(data) {
+			$.each(data, function(i, data) {
+				var body = "<a href=''>" + data.categorie_naam + "</a><br/>";
+				$('.categorie-link').append(body);
+			});
+		},
+		error : function() {
+			alert('Fail!');
+		}
+	});
+});
+</script>
+
 </html>

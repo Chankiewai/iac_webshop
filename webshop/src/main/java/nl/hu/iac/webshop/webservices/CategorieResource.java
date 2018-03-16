@@ -14,35 +14,29 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import nl.hu.iac.webshop.model.Categorie;
 import nl.hu.iac.webshop.model.Product;
 import nl.hu.iac.webshop.model.ServiceProvider;
 import nl.hu.iac.webshop.model.WebshopService;
 import nl.hu.iac.webshop.persistence.CategorieDAO;
-import nl.hu.iac.webshop.persistence.ProductDAO;
 
 
-@Path("/product")
-public class ProductResource {
-	ProductDAO productDAO = new ProductDAO();
+@Path("/categorie")
+public class CategorieResource {
 	CategorieDAO categorieDAO = new CategorieDAO();
 	
 	@GET
 	@Produces("application/json")
-	public String getProducten() {
+	public String getCategorie() {
 		WebshopService service = ServiceProvider.getWebshopService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 
-		for (Product p : service.getAllProducten()) {
+		for (Categorie c : service.getAllCategorie()) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("product_id", p.getProductId());
-			job.add("product_naam", p.getProductNaam());
-			job.add("product_omschrijving", p.getProductOmschrijving());
-			job.add("product_prijs", p.getProductPrijs());
-			job.add("product_plaatje", p.getProductPlaatje());
-			job.add("categorie_id", p.getCategorie().getCategorieId());
-			job.add("categorie_naam", p.getCategorie().getCategorieNaam());
-			job.add("categorie_omschrijving", p.getCategorie().getCategorieOmschrijving());
-			job.add("categorie_plaatje", p.getCategorie().getCategoriePlaatje());
+			job.add("categorie_id", c.getCategorieId());
+			job.add("categorie_naam", c.getCategorieNaam());
+			job.add("categorie_omschrijving", c.getCategorieOmschrijving());
+			job.add("categorie_plaatje", c.getCategoriePlaatje());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
