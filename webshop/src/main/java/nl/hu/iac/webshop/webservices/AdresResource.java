@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 
 import nl.hu.iac.webshop.model.Adres;
 import nl.hu.iac.webshop.model.ServiceProvider;
-import nl.hu.iac.webshop.model.WebshopServiceKlanten;
+import nl.hu.iac.webshop.model.WebshopService;
 import nl.hu.iac.webshop.persistence.AdresDAO;
 
 
@@ -20,7 +20,7 @@ public class AdresResource {
 	@GET
 	@Produces("application/json")
 	public String getAdressen() {
-		WebshopServiceKlanten service = ServiceProvider.getWebshopServiceKlanten();
+		WebshopService service = ServiceProvider.getWebshopService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 
 		for (Adres a : service.getAllAdressen()) {
