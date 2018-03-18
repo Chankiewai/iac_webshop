@@ -4,12 +4,14 @@ import java.util.List;
 
 import nl.hu.iac.webshop.persistence.AdresDAO;
 import nl.hu.iac.webshop.persistence.CategorieDAO;
+import nl.hu.iac.webshop.persistence.KlantDAO;
 import nl.hu.iac.webshop.persistence.ProductDAO;
 
 public class WebshopService {
 	private ProductDAO productDAO = new ProductDAO();
 	private CategorieDAO categorieDAO = new CategorieDAO();
 	private AdresDAO adresDAO = new AdresDAO();
+	private KlantDAO klantDAO = new KlantDAO();
 	
 	public List<Product> getAllProducten() {
 		return productDAO.findAll();
@@ -51,6 +53,22 @@ public class WebshopService {
 		for (Adres adres : adresDAO.findAll()) {
 			if (adres.getAdresId() == adres_id) {
 				result = adres;
+				break;
+			}
+		}		
+		return result;
+	}
+	
+	public List<Klant> getAllKlanten() {
+		return klantDAO.findAll();
+	}
+
+	
+	public Klant getKlantById(int klant_id) {
+		Klant result = null;	
+		for (Klant klant : klantDAO.findAll()) {
+			if (klant.getKlantId() == klant_id) {
+				result = klant;
 				break;
 			}
 		}		

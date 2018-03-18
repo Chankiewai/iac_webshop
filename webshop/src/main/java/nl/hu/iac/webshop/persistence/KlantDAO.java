@@ -1,6 +1,7 @@
 package nl.hu.iac.webshop.persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,22 +31,28 @@ public class KlantDAO extends BaseDAO {
 		return results;
 	}
 	
-	public Klant save(Klant Klant) {
+	public Klant save(String naam, String adres) {
 		try (Connection con = super.getConnection()){
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO Klant VALUES (" + Klant.getKlantId() + ", '" + Klant.getNaam() + "', '" + Klant.getAdres() + "')");
+			/*Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO Klant VALUES (" + Klant.getKlantId() + ", '" + Klant.getNaam() + "', '" + Klant.getAdres() + "')");*/
+			PreparedStatement ps = con.prepareStatement("INSERT INTO klant(klant_id, naam, adres_id) VALUES (klant_seq.nextval,?,?)");
+			ps.setString(1, naam);
+			ps.setString(2, adres);
+
+			
+			ps.executeQuery();
 			System.out.println("Klant is toegevoegd!");
 
 		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
-		return Klant;
+		return null;
 	}
 	
 	public List<Klant> findAll() {
-		return selectKlant("SELECT klant_id, naam, adres FROM klant");
+		return selectKlant("SELECT klant_id, naam, adres_id FROM klant");
 	}
 	
 	public Klant findByKlant_id(String klant){
-		return selectKlant("SELECT klant_id, naam, adres FROM klant where klant_id = " + klant).get(0);
+		return selectKlant("SELECT klant_id, naam, adres_id FROM klant where klant_id = " + klant).get(0);
 	}
 
 	
