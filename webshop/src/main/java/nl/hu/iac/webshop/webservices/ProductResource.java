@@ -1,5 +1,7 @@
 package nl.hu.iac.webshop.webservices;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import javax.json.Json;
@@ -45,6 +47,33 @@ public class ProductResource {
 			job.add("categorie_omschrijving", p.getCategorie().getCategorieOmschrijving());
 			job.add("categorie_plaatje", p.getCategorie().getCategoriePlaatje());
 			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("{code}")
+	@Produces("application/json")
+	public String getPersoonById(@PathParam("code") int id) { //specifiek een product opzoeken
+		WebshopService service = ServiceProvider.getWebshopService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		try {
+			Product p = service.getProductById(id);
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("product_id", p.getProductId());
+			job.add("product_naam", p.getProductNaam());
+			job.add("product_omschrijving", p.getProductOmschrijving());
+			job.add("product_prijs", p.getProductPrijs());
+			job.add("product_plaatje", p.getProductPlaatje());
+			job.add("categorie_id", p.getCategorie().getCategorieId());
+			job.add("categorie_naam", p.getCategorie().getCategorieNaam());
+			job.add("categorie_omschrijving", p.getCategorie().getCategorieOmschrijving());
+			job.add("categorie_plaatje", p.getCategorie().getCategoriePlaatje());
+			jab.add(job);
+		} catch (Exception e) {
+			System.out.println("Het product met id " + id + " kon niet opgevraagd worden!");
 		}
 		JsonArray array = jab.build();
 		return array.toString();
