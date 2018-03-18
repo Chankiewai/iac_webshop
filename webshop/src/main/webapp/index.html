@@ -7,6 +7,7 @@
 .ui-bar {padding:0px;}
 .ui-body {opacity: 0.85;}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -23,6 +24,12 @@
 			<p>
 				aanbieding #1 WAOH, aanbieding #2 WOAAAAAAH <a href='productToevoegen.html'>product toevoegen</a>
 			</p>
+			
+			<div class="aanbiedingen">
+				<ul class='product_aanbieding'>		
+				</ul>
+			</div>
+			
 		</div>
 	</div>
 </body>
@@ -42,6 +49,26 @@ $(document).ready(function(){
 		},
 		error : function() {
 			var body = "<p>Er zijn geen categorieen beschikbaar</p>";
+			$('.categorie-link').append(body);
+		}
+	});
+	
+	$.ajax({
+		method : 'GET',
+		url : 'restservices/aanbieding',
+		mimeType : 'json',
+		success : function(data) {
+			$.each(data, function(i, data) {
+				var body = "<li>";
+				body += "<div class='product_aanbieding_plaatje'>" + data.product_plaatje + "</div>";
+				body += "<div class='product_aanbieding_informatie'>" + data.product_naam + " voor maar <strike>&euro;" + data.product_prijs + "</strike> &euro;" + data.aanbieding_prijs + " bespaar &euro;" + data.aanbieding_verschil + "! geldig tot  " + data.tot_datum + "</div>";
+				body += "</li>"
+				
+				$('.product_aanbieding').append(body);
+			});
+		},
+		error : function() {
+			var body = "<p>Er zijn geen producten in de aanbieding.</p>";
 			$('.categorie-link').append(body);
 		}
 	});
