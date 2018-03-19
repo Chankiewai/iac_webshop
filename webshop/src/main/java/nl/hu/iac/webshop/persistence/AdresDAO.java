@@ -33,12 +33,12 @@ public class AdresDAO extends BaseDAO {
 	public Adres save(Adres adres, Klant klant) {//String straat, int huisnummer, String postcode, String plaats
 		try (Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO Adres VALUES ('" + adres.getPostcode() + "', '" + adres.getAdresId() + "', '" + adres.getHuisnummer() + "', '" + adres.getStraat() + "', " + adres.getPlaats() + "')"
+			String query = "INSERT INTO adres(straat, huisnummer, postcode, plaats) VALUES ('" + adres.getStraat() + "', " + adres.getHuisnummer() + ", '" + adres.getPostcode() + "' ,'" + adres.getPlaats() + "')";
 			stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				int getadres_id = rs.getInt("adres_id");
-				stmt.executeUpdate("INSERT INTO klant VALUES (" + klant.getKlantId() + ", '" + klant.getNaam() + "', '" + klant.getAdres() + "')");
+				stmt.executeUpdate("INSERT INTO klant(naam, adres_id) VALUES ('" + klant.getNaam() + "', " + getadres_id + ")");
 			}
 			
 			System.out.println("Adres is toegevoegd!");
@@ -50,7 +50,7 @@ public class AdresDAO extends BaseDAO {
 			
 			ps.executeQuery();*/
 
-		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
+		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Adres is niet toegevoegd!"); }
 		return adres;
 	}
 

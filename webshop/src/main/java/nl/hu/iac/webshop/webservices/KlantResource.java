@@ -66,7 +66,7 @@ public class KlantResource {
 		return array.toString();
 	}
 	
-	@POST
+	/*@POST
 	@Produces("application/json")
 	public void createKlant(@FormParam("naam") String naam,
 								 @FormParam("straat") String straat,
@@ -75,5 +75,5 @@ public class KlantResource {
 								 @FormParam("plaats") String plaats) {
 		Klant newKlant = new Klant(naam);
 		dao.save(newKlant);
-	}
+	}*/
 }
