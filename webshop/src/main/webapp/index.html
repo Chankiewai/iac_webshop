@@ -73,7 +73,7 @@ $(document).ready(function(){
             	
           		for (i=0; i<data.length; i++) {
           			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen('" + data[i].product_id + "')\">Voeg toe</button></a><button>Verwijder</button><button>Wijzig</button></div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen({'product_id' : " + data[i].product_id + ", 'product_naam' : '" + data[i].product_naam + "', 'product_prijs' : " + data[i].product_prijs + "})\">Voeg toe</button></a><button>Verwijder</button><button>Wijzig</button></div>";
           		}
           		
           		body += "</div>"
@@ -109,20 +109,33 @@ $(document).ready(function(){
 var winkelwagen = [];
 
 function updateWinkelwagen(product) {
+	for (i=0; i<winkelwagen.length; i++) {
+		if (winkelwagen[i].product_id == product.product_id) {
+			alert("Product zit al in de winkelwagen!");
+			return;
+		}
+	}
     winkelwagen.push(product);
-    console.log(winkelwagen);
+    alert("Product toegevoegd aan winkelwagen!");
 }
 
 function toonWinkelwagen() {
+	console.log(winkelwagen);
 	var body = "<h1>Uw winkelwagentje!</h1>";
 	body += "<div class='grid-container'>";	
 	
 	for (i=0; i<winkelwagen.length; i++) {
-		body += "<div class='grid-item'>" + winkelwagen[i] + "</div>";
+		body += "<div class='grid-item'>" + winkelwagen[i].product_naam + "<br>€" + winkelwagen[i].product_prijs + "<button>Verhoog aantal</button></div>";
 	}
-		
-	body += "</div>"
+	
+	body += "</div>";
+	if (winkelwagen.length>0) {
+		body += "<a href='#'><button>Afrekenen</button></a>";
+	} else {
+		body += "<h2>Winkelwagentje is leeg</h2>";
+	}
 	$('#main').empty().append(body);
 }
+
 </script> 
 </html>
