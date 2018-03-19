@@ -92,8 +92,7 @@ $(document).ready(function(){
             	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
-          			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button>In winkelmandje</button></a></div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>" + data[i].product_omschrijving + "</p><a href='#'><button>Voeg toe</button></a></div>";
           		}
           		
           		body += "</div>"
@@ -111,18 +110,8 @@ $(document).ready(function(){
 		mimeType : 'json',
 		success : function(data) {
 			$.each(data, function(i, data) {
-/* 				var body = "<li>";
-				body += "<div class='product_aanbieding_plaatje'>" + data.product_plaatje + "</div>";
-				body += "<div class='product_aanbieding_informatie'>" + data.product_naam + " voor maar <strike>&euro;" + data.product_prijs + "</strike> &euro;" + data.aanbieding_prijs + " bespaar &euro;" + data.aanbieding_verschil + "! geldig tot  " + data.tot_datum + "</div>";
-				body += "</li>"
-				
-				$('.product_aanbieding').append(body); */
             	var body = "<div class='grid-container'>";	
-            	
-          			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data.product_naam + "<br><strike>€" + data.product_prijs + "</strike> " + data.aanbieding_prijs + "<br><img src='" + data.product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button>In winkelmandje</button></a></div>";
- 
-          		
+          			body += "<div class='grid-item'>" + data.product_naam + "<br><strike>€" + data.product_prijs + "</strike> " + data.aanbieding_prijs + "<br><img src='" + data.product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>"+data.product_omschrijving+"</p><a href='#'><button>Voeg toe</button></a></div>";     		
           			body += "</div>"
           		$('.product_aanbieding').append(body);
 			});
