@@ -13,6 +13,7 @@
 <body>
 	<div id="frame">
 		<div id="menu">
+			<h2>Categoriën</h2>
 			<div class='categorie-link'></div>
 		</div>
 		<div id="main">
@@ -43,7 +44,7 @@ $(document).ready(function(){
 		mimeType : 'json',
 		success : function(data) {
 			$.each(data, function(i, data) {
-				var body = "<a href=''>" + data.categorie_naam + "</a><br/>";
+				var body = "<a href='#'><button>" + data.categorie_naam + "</button></a><br/>";
 				$('.categorie-link').append(body);
 			});
 		},
