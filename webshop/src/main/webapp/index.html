@@ -43,7 +43,7 @@ $(document).ready(function(){
 		mimeType : 'json',
 		success : function(data) {
 			$.each(data, function(i, data) {
-				var body = "<a href='#'><button>" + data.categorie_naam + "</button></a><br/>";
+				var body = "<div id='categorie-item' class='" + data.categorie_id + "'<a href='#'><button>" + data.categorie_naam + "</button></a></div><br/>";
 				$('.categorie-link').append(body);
 			});
 		},
@@ -52,6 +52,21 @@ $(document).ready(function(){
 			$('.categorie-link').append(body);
 		}
 	});
+	
+	$(".categorie-link").on("click", "#categorie-item", function(e) {  
+		console.log('ik word geklikt!');
+        $.ajax({
+            method: "GET",
+            url: "restservices/categorie/" + $(e.currentTarget).attr("class"),
+            mimeType: 'json',
+            success: function(data) {
+          
+            },
+            error: function (response) {
+                console.log("failed");
+            }
+        });
+    });
 	
 	$.ajax({
 		method : 'GET',
