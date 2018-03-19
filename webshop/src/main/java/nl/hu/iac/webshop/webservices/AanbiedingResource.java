@@ -32,7 +32,7 @@ public class AanbiedingResource {
 	
 	@GET
 	@Produces("application/json")
-	public String getAanbiedingen() {
+	public String getAanbiedingen(@PathParam("code") int id) {
 		WebshopService service = ServiceProvider.getWebshopService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 
@@ -49,6 +49,37 @@ public class AanbiedingResource {
 			job.add("product_plaatje", a.getProduct().getProductPlaatje());
 			job.add("aanbieding_verschil", a.getProduct().getProductPrijs() - a.getAanbiedingPrijs());
 			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("{code}")
+	@Produces("application/json")
+	public String getAanbiedingenForFrontPage(@PathParam("code") int id) {
+		WebshopService service = ServiceProvider.getWebshopService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		int i = 0;
+
+		for (Aanbieding a : service.getAllAanbiedingen()) {
+			if (i < id) {
+				JsonObjectBuilder job = Json.createObjectBuilder();
+				job.add("aanbieding_id", a.getAanbiedingId());
+				job.add("van_datum", a.getVanDatum() + "");
+				job.add("tot_datum", a.getTotDatum() + "");
+				job.add("aanbieding_prijs", a.getAanbiedingPrijs());
+				job.add("product_id", a.getProduct().getProductId());
+				job.add("product_naam", a.getProduct().getProductNaam());
+				job.add("product_omschrijving", a.getProduct().getProductOmschrijving());
+				job.add("product_prijs", a.getProduct().getProductPrijs());
+				job.add("product_plaatje", a.getProduct().getProductPlaatje());
+				job.add("aanbieding_verschil", a.getProduct().getProductPrijs() - a.getAanbiedingPrijs());
+				jab.add(job);
+				id += 1;
+			} else {
+				break;
+			}
 		}
 		JsonArray array = jab.build();
 		return array.toString();
