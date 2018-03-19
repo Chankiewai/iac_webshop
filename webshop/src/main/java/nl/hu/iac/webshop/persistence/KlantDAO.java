@@ -31,17 +31,22 @@ public class KlantDAO extends BaseDAO {
 		return results;
 	}
 	
-	public Klant save(String naam, String adres) {
+	public Klant save(String naam, String straat, int huisnummer, String postcode, String plaats) {
 		try (Connection con = super.getConnection()){
 			/*Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO Klant VALUES (" + Klant.getKlantId() + ", '" + Klant.getNaam() + "', '" + Klant.getAdres() + "')");*/
-			PreparedStatement ps = con.prepareStatement("INSERT INTO klant(klant_id, naam, adres_id) VALUES (klant_seq.nextval,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO klant(klant_id, naam, adres_id) VALUES (klant_seq.nextval,?,adres_seq.nextval)");
 			ps.setString(1, naam);
-			ps.setString(2, adres);
+			
+			PreparedStatement ps2 = con.prepareStatement("INSERT INTO adres(adres_id, straat, huisnummer, postcode, plaats) VALUES (adres_seq.nextval,?,?,?,?)");
+			ps2.setString(1, straat);
+			ps2.setInt(2, huisnummer);
+			ps2.setString(3, postcode);
+			ps2.setString(4, plaats);
 
 			
 			ps.executeQuery();
-			System.out.println("Klant is toegevoegd!");
+			System.out.println("Klant en adres is toegevoegd!");
 
 		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
 		return null;
