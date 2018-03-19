@@ -14,6 +14,13 @@ public class Adres {
 		this.postcode = postcode;
 		this.plaats = plaats;
 	}
+	
+	public Adres(String straat, int huisnummer, String postcode, String plaats){
+		this.straat = straat;
+		this.huisnummer = huisnummer;
+		this.postcode = postcode;
+		this.plaats = plaats;
+	}
 
 	public int getAdresId() {
 		return adres_id;

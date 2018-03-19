@@ -73,10 +73,7 @@ public class KlantResource {
 								 @FormParam("huisnummer") int huisnummer,
 								 @FormParam("postcode") String postcode,
 								 @FormParam("plaats") String plaats) {
-		
-
-		dao.save(naam, straat, huisnummer, postcode, plaats);
+		Klant newKlant = new Klant(naam);
+		dao.save(newKlant);
 	}
-
-
 }

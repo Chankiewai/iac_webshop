@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.hu.iac.webshop.model.Adres;
+import nl.hu.iac.webshop.model.Klant;
 
 public class AdresDAO extends BaseDAO {
 	private List<Adres> selectAdres(String query) {
@@ -29,22 +30,28 @@ public class AdresDAO extends BaseDAO {
 		return results;
 	}
 	//create
-	public Adres save(String straat, int huisnummer, String postcode, String plaats) {
+	public Adres save(Adres adres, Klant klant) {//String straat, int huisnummer, String postcode, String plaats
 		try (Connection con = super.getConnection()){
-			/*Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO Adres VALUES ('" + Adres.getPostcode() + "', '" + Adres.getAdresId() + "', '" + Adres.getHuisnummer() + "', '" + Adres.getStraat() + "', " + Adres.getPlaats() + "')");
-			System.out.println("Adres is toegevoegd!");*/
-			PreparedStatement ps = con.prepareStatement("INSERT INTO Adres(adres_id, straat, huisnummer, postcode, plaats) VALUES (adres_seq.nextval,?,?,?,?)");
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO Adres VALUES ('" + adres.getPostcode() + "', '" + adres.getAdresId() + "', '" + adres.getHuisnummer() + "', '" + adres.getStraat() + "', " + adres.getPlaats() + "')"
+			stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs.next()) {
+				int getadres_id = rs.getInt("adres_id");
+				stmt.executeUpdate("INSERT INTO klant VALUES (" + klant.getKlantId() + ", '" + klant.getNaam() + "', '" + klant.getAdres() + "')");
+			}
+			
+			System.out.println("Adres is toegevoegd!");
+			/*PreparedStatement ps = con.prepareStatement("INSERT INTO Adres(adres_id, straat, huisnummer, postcode, plaats) VALUES (adres_seq.nextval,?,?,?,?)");
 			ps.setString(1, straat);
 			ps.setInt(2, huisnummer);
 			ps.setString(3, postcode);
 			ps.setString(4, plaats);
 			
-			ps.executeQuery();
-			System.out.println("Adres is toegevoegd!");
+			ps.executeQuery();*/
 
 		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
-		return null;
+		return adres;
 	}
 
 	public List<Adres> findAll() {

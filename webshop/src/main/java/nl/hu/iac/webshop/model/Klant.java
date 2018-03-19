@@ -9,6 +9,10 @@ public class Klant {
 		this.klant_id = klant_id;
 		this.naam = naam;
 	}
+	
+	public Klant(String naam){
+		this.naam = naam;
+	}
 
 	public int getKlantId() {
 		return klant_id;
