@@ -27,14 +27,19 @@
 </body>
 
 <script>
-	$("#post").click(
-			function() {
-				//console.log('ik word geklikt');
-				var data = $("#productToevoegen").serialize();
-				$.post("restservices/product", data, function() {
-					
-				});
-			});
+$("#post").click(function(response) {
+	if( $('#naam').val() != "" && $('#omschrijving').val() != "" && $('#prijs').val() != "" && $('#plaatje').val() != "") {
+		var data = $("#productToevoegen").serialize();
+		$.post("restservices/product", data, function(response) {
+			console.log("U hebt succesvol kunnen registreren");
+		});
+		
+	} else {
+		alert("Niet alle velden zijn ingevuld of prijs moet een getal zijn!");
+	}
+
+	
+});
 </script>
 
 </html>
