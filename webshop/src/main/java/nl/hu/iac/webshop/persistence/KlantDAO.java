@@ -31,12 +31,14 @@ public class KlantDAO extends BaseDAO {
 		return results;
 	}
 	
-	public Klant save(Klant Klant) {//String naam, String straat, int huisnummer, String postcode, String plaats
+	public Klant save(Klant Klant, Adres adres) {//String naam, String straat, int huisnummer, String postcode, String plaats
 		try (Connection con = super.getConnection()){
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("INSERT INTO klant VALUES (" + Klant.getKlantId() + ", '" + Klant.getNaam() + "', '" + Klant.getAdres() + "')");
 			Statement stmt2 = con.createStatement();
 			stmt2.executeUpdate("INSERT INTO adres VALUES (" + Klant.getAdres().getAdresId() + ", " + Klant.getAdres().getHuisnummer() + ", '" + Klant.getAdres().getPostcode() + ",' '" + Klant.getAdres().getPlaats() + "')");
+			stmt.executeUpdate("INSERT INTO klant VALUES (" + Klant.getKlantId() + ", '" + Klant.getNaam() + "', '" + Klant.getAdres() + "')");
+			
+			
 			/*PreparedStatement ps2 = con.prepareStatement("INSERT INTO adres(adres_id, straat, huisnummer, postcode, plaats) VALUES (adres_seq.nextval,?,?,?,?)");
 			ps2.setString(1, straat);
 			ps2.setInt(2, huisnummer);
