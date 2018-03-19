@@ -3,9 +3,21 @@
 <title>'t virtuele winkeltje</title>
 <head>
 <style>
-.ui-page {background: url(/pictures/background.jpeg);background-position:center center;background-size:100% 100%;}
-.ui-bar {padding:0px;}
-.ui-body {opacity: 0.85;}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 5px;
+}
+.grid-item {
+  background-color: #d0d793;
+  border-radius: 4px;
+  width: 150px;
+  color: white;
+  padding: 5px;
+  margin: 2px 2px;
+  font-size: 16px;
+  text-align: center;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -32,6 +44,8 @@
 			
 			<div class="aanbiedingen">
 				<ul class='product_aanbieding'>		
+				</ul>
+				<ul class='product_categorie'>		
 				</ul>
 			</div>
 			
@@ -64,7 +78,15 @@ $(document).ready(function(){
             url: "restservices/product/categorie/" + $(e.currentTarget).attr("class"),
             mimeType: 'json',
             success: function(data) {
-          		console.log($(e.currentTarget).attr("class") + " " + data.categorie_naam);
+            	var body = "<div class='grid-container'>";	
+            	
+          		for (i=0; i<data.length; i++) {
+          			//console.log(data[i].product_naam);
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "</div>";
+          		}
+          		
+          		body += "</div>"
+          		$('.product_categorie').empty().append(body);
             },
             error: function (response) {
                 console.log("er kunnen geen gegevens opgehaald worden.");
