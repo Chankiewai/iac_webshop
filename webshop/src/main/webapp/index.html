@@ -18,6 +18,9 @@
   font-size: 16px;
   text-align: center;
 }
+img {
+	max-width: 150px;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -25,7 +28,7 @@
 <body>
 	<div id="frame">
 		<div id="menu">
-			<h2>Categoriën</h2>
+			<h2>Categorieën</h2>
 			<div class='categorie-link'></div>
 		</div>
 		<div id="main">
@@ -34,13 +37,6 @@
 				Welkom bij onze webshop!<br><br>Gemaakt door Chanwai Lok, Donald Hioe en Marc Bosman
 			</p>
 			<h2>Aanbiedingen</h2>
-			<p>
-				<a href='productToevoegen.html'>product toevoegen</a>
-			</p>
-			
-			<p>
-				<a href='klanten.html'>klant toevoegen</a>
-			</p>
 			
 			<p>
 				<a href='winkelwagen.html'>Winkelwagen</a>
@@ -52,6 +48,15 @@
 				<ul class='product_categorie'>		
 				</ul>
 			</div>
+			
+			<h2>Niet kijken, dit is niet voor de klant</h2>
+			<p>
+				<a href='productToevoegen.html'>product toevoegen</a>
+			</p>
+			
+			<p>
+				<a href='klanten.html'>klant toevoegen</a>
+			</p>
 			
 		</div>
 	</div>
@@ -82,15 +87,17 @@ $(document).ready(function(){
             url: "restservices/product/categorie/" + $(e.currentTarget).attr("class"),
             mimeType: 'json',
             success: function(data) {
-            	var body = "<div class='grid-container'>";	
+            	var body = "<h1>Assortiment 't virtuele winkeltje!</h1>";
+            	body += "<h2>" + data[0].categorie_naam + "</h2>";
+            	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
           			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "</div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button>In winkelmandje</button></a></div>";
           		}
           		
           		body += "</div>"
-          		$('.product_categorie').empty().append(body);
+          		$('#main').empty().append(body);
             },
             error: function (response) {
                 console.log("er kunnen geen gegevens opgehaald worden.");
@@ -104,17 +111,25 @@ $(document).ready(function(){
 		mimeType : 'json',
 		success : function(data) {
 			$.each(data, function(i, data) {
-				var body = "<li>";
+/* 				var body = "<li>";
 				body += "<div class='product_aanbieding_plaatje'>" + data.product_plaatje + "</div>";
 				body += "<div class='product_aanbieding_informatie'>" + data.product_naam + " voor maar <strike>&euro;" + data.product_prijs + "</strike> &euro;" + data.aanbieding_prijs + " bespaar &euro;" + data.aanbieding_verschil + "! geldig tot  " + data.tot_datum + "</div>";
 				body += "</li>"
 				
-				$('.product_aanbieding').append(body);
+				$('.product_aanbieding').append(body); */
+            	var body = "<div class='grid-container'>";	
+            	
+          			//console.log(data[i].product_naam);
+          			body += "<div class='grid-item'>" + data.product_naam + "<br><strike>€" + data.product_prijs + "</strike> " + data.aanbieding_prijs + "<br><img src='" + data.product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button>In winkelmandje</button></a></div>";
+ 
+          		
+          			body += "</div>"
+          		$('.product_aanbieding').append(body);
 			});
 		},
 		error : function() {
 			var body = "<p>Er zijn geen producten in de aanbieding.</p>";
-			$('.categorie-link').append(body);
+			$('.product_aanbieding').append(body);
 		}
 	});
 	
