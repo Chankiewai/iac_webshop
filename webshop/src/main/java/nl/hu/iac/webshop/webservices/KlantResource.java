@@ -4,7 +4,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,7 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import nl.hu.iac.webshop.model.Klant;
-import nl.hu.iac.webshop.model.Product;
 import nl.hu.iac.webshop.model.ServiceProvider;
 import nl.hu.iac.webshop.model.WebshopService;
 import nl.hu.iac.webshop.persistence.KlantDAO;
