@@ -22,10 +22,6 @@
 			</p>
 			<h2>Aanbiedingen</h2>
 			
-			<p>
-				<a href='winkelwagen.html'>Winkelwagen</a>
-			</p>
-			
 			<div class="aanbiedingen">
 				<ul class='product_aanbieding'>		
 				</ul>
@@ -76,16 +72,8 @@ $(document).ready(function(){
             	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
-<<<<<<< HEAD
-<<<<<<< HEAD
           			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen('" + data[i].product_id + "')\">Voeg toe</button></a></div>";
-=======
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>" + data[i].product_omschrijving + "</p><a href='#'><button>Voeg toe</button></a></div>";
->>>>>>> origin/master
-=======
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>" + data[i].product_omschrijving + "</p><a href='#'><button>Voeg toe</button></a><button>Verwijder</button> <button>Wijzig</button></div>";
->>>>>>> origin/master
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen('" + data[i].product_id + "')\">Voeg toe</button></a><button>Verwijder</button><button>Wijzig</button></div>";
           		}
           		
           		body += "</div>"
