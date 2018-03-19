@@ -24,6 +24,14 @@ public class Product {
 		
 	}
 
+	public Product(int product_id, String product_naam, String product_omschrijving, double product_prijs, String product_plaatje, int categorie_id){
+		this.product_id = product_id;
+		this.product_naam = product_naam;
+		this.product_omschrijving = product_omschrijving;
+		this.product_prijs = product_prijs;
+		this.product_plaatje = product_plaatje;
+	}
+	
 	public int getProductId() {
 		return product_id;
 	}

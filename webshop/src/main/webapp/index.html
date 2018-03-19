@@ -92,14 +92,15 @@ $(document).ready(function(){
             	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>" + data[i].product_omschrijving + "</p><a href='#'><button>Voeg toe</button></a></div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>" + data[i].product_omschrijving + "</p><a href='#'><button>Voeg toe</button></a><button>Verwijder</button> <button>Wijzig</button></div>";
           		}
           		
           		body += "</div>"
           		$('#main').empty().append(body);
             },
             error: function (response) {
-                console.log("er kunnen geen gegevens opgehaald worden.");
+            	var body = "Er zijn geen producten beschikbaar voor dit categorie.";
+            	$('#main').empty().append(body);
             }
         });
     });

@@ -115,9 +115,20 @@ public class ProductResource {
 								 @FormParam("omschrijving") String omschrijving,
 								 @FormParam("prijs") double prijs,
 								 @FormParam("plaatje") String plaatje) {
-		
 		Product newProduct = new Product(naam, omschrijving, prijs, plaatje);
 
 		productDAO.productToevoegen(newProduct);
+	}
+	
+	@PUT
+	@Path("{product_id}")
+	public void updateLid(@PathParam("product_id") int product_id,
+								@FormParam("product_naam") String product_naam,
+								@FormParam("product_omschrijving") String product_omschrijving,
+								@FormParam("product_prijs") double product_prijs,
+								@FormParam("product_plaatje") String product_plaatje,
+								@FormParam("categorie_id") int categorie_id) {
+		Product updateProduct = new Product(product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id);
+		productDAO.updateProduct(updateProduct);
 	}
 }
