@@ -25,11 +25,11 @@ public class AdresResource {
 
 		for (Adres a : service.getAllAdressen()) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("product_id", a.getAdresId());
-			job.add("product_naam", a.getHuisnummer());
-			job.add("product_omschrijving", a.getPlaats());
-			job.add("product_prijs", a.getPostcode());
-			job.add("product_plaatje", a.getStraat());
+			job.add("adres_id", a.getAdresId());
+			job.add("huisnummer", a.getHuisnummer());
+			job.add("plaats", a.getPlaats());
+			job.add("postcode", a.getPostcode());
+			job.add("straat", a.getStraat());
 
 		}
 		JsonArray array = jab.build();

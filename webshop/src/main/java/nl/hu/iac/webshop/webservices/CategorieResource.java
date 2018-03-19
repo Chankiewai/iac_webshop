@@ -42,34 +42,4 @@ public class CategorieResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-	
-	@GET
-	@Path("{code}")
-	@Produces("application/json")
-	public String getCategorieProducten(@PathParam("code") int id) {
-		WebshopService service = ServiceProvider.getWebshopService();
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-
-		try {
-			Product p = service.getProductById(id);
-			if (p.getCategorie().getCategorieId() == id) {
-				JsonObjectBuilder job = Json.createObjectBuilder();
-				job.add("product_id", p.getProductId());
-				job.add("product_naam", p.getProductNaam());
-				job.add("product_omschrijving", p.getProductOmschrijving());
-				job.add("product_prijs", p.getProductPrijs());
-				job.add("product_plaatje", p.getProductPlaatje());
-				job.add("categorie_id", p.getCategorie().getCategorieId());
-				job.add("categorie_naam", p.getCategorie().getCategorieNaam());
-				job.add("categorie_omschrijving", p.getCategorie().getCategorieOmschrijving());
-				job.add("categorie_plaatje", p.getCategorie().getCategoriePlaatje());
-				jab.add(job);
-			}
-		} catch (Exception e) {
-			System.out.println("Het product met id " + id + " kon niet opgevraagd worden!");
-		}
-		JsonArray array = jab.build();
-		return array.toString();
-	}
-	
 }

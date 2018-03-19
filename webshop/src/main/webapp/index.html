@@ -55,16 +55,15 @@ $(document).ready(function(){
 	});
 	
 	$(".categorie-link").on("click", "#categorie-item", function(e) {  
-		console.log('ik word geklikt!');
         $.ajax({
             method: "GET",
-            url: "restservices/categorie/" + $(e.currentTarget).attr("class"),
+            url: "restservices/product/categorie/" + $(e.currentTarget).attr("class"),
             mimeType: 'json',
             success: function(data) {
-          
+          		console.log($(e.currentTarget).attr("class") + " " + data.categorie_naam);
             },
             error: function (response) {
-                console.log("failed");
+                console.log("er kunnen geen gegevens opgehaald worden.");
             }
         });
     });
@@ -91,6 +90,4 @@ $(document).ready(function(){
 	
 });
 </script>
-
-
 </html>

@@ -90,5 +90,4 @@ public class ProductResource {
 
 		productDAO.productToevoegen(newProduct);
 	}
-	
 }
