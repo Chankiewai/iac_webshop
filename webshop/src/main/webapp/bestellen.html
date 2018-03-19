@@ -2,9 +2,10 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Klant toevoegen</title>
+<title>Klant gegevens</title>
 </head>
 <body>
+<h1>Klant gegevens</h1>
 	<form id="klantToevoegen">
 			<div class="form-group">
 			<label for="naam">Klantnaam: </label> 
@@ -26,7 +27,7 @@
 			<label for="plaats">Plaats: </label> 
 			<input type="text" class="form-control" name="plaats" id="plaats"><br /> 
 			</div>
-			<a href=""><input type="button" id="post" class="btn btn-success" value="Toevoegen"></a>
+			<input type="button" id="post" class="btn btn-success" value="Volgende">
 			
 		</form>
 </body>
@@ -38,7 +39,9 @@ $("#post").click(function(response) {
 	if( $('#naam').val() != "" && $('#straat').val() != "" && $('#huisnummer').val() != "" && $('#postcode').val() != "" && $('#plaats').val() != "" ) {
 		var data = $("#klantToevoegen").serialize();
 		$.post("restservices/adres", data, function(response) {
-			console.log("U hebt succesvol kunnen registreren");
+			console.log("U hebt succesvol de gegevens ingevuld!");
+			window.location.href = "/webshop/bestellen2.html";
+
 		});
 		
 	} else {
