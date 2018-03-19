@@ -3,24 +3,6 @@
 <title>'t virtuele winkeltje</title>
 <head>
 <style>
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 5px;
-}
-.grid-item {
-  background-color: #d0d793;
-  border-radius: 4px;
-  width: 150px;
-  color: white;
-  padding: 5px;
-  margin: 2px 2px;
-  font-size: 16px;
-  text-align: center;
-}
-img {
-	max-width: 150px;
-}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -30,6 +12,8 @@ img {
 		<div id="menu">
 			<h2>Categorieën</h2>
 			<div class='categorie-link'></div>
+			<h2>Winkelwagen</h2>
+			<div id='winkelwagen-item' class='winkelwagen'><a href='#'><button onclick='toonWinkelwagen()'>Winkelwagen</button></a></div>
 		</div>
 		<div id="main">
 			<h1>Welkom bij 't virtuele winkeltje!</h1>
@@ -89,11 +73,7 @@ $(document).ready(function(){
             	
           		for (i=0; i<data.length; i++) {
           			//console.log(data[i].product_naam);
-<<<<<<< HEAD
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button>In winkelmandje</button></a></div>";
-=======
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='kan geen plaatje vinden.'></div>";
->>>>>>> origin/master
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen('" + data[i].product_id + "')\">Voeg toe</button></a></div>";
           		}
           		
           		body += "</div>"
@@ -126,5 +106,24 @@ $(document).ready(function(){
 	});
 	
 });
+
+var winkelwagen = [];
+
+function updateWinkelwagen(product) {
+    winkelwagen.push(product);
+    console.log(winkelwagen);
+}
+
+function toonWinkelwagen() {
+	var body = "<h1>Uw winkelwagentje!</h1>";
+	body += "<div class='grid-container'>";	
+	
+	for (i=0; i<winkelwagen.length; i++) {
+		body += "<div class='grid-item'>" + winkelwagen[i] + "</div>";
+	}
+		
+	body += "</div>"
+	$('#main').empty().append(body);
+}
 </script>
 </html>
