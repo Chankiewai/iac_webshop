@@ -5,10 +5,10 @@
 <title>Klant toevoegen</title>
 </head>
 <body>
-	<form id="klantToevoegen">
+	<h1>Winkelwagen</h1>
+	<form id="winkelwagenform">
 			<div class="form-group">
-			<label for="naam">Klantnaam: </label> 
-			<input type="text" class="form-control" name="naam" id="naam"><br /> 
+			<label for="winkelwagen">Winkelwagen </label> 
 			</div>
 			<div class="form-group">
 			<label for="straat">Straat:</label> 
@@ -27,26 +27,11 @@
 			<input type="text" class="form-control" name="plaats" id="plaats"><br /> 
 			</div>
 			<a href=""><input type="button" id="post" class="btn btn-success" value="Toevoegen"></a>
-			
 		</form>
 </body>
 
 <script>
 
-
-$("#post").click(function(response) {
-	if( $('#naam').val() != "" && $('#straat').val() != "" && $('#huisnummer').val() != "" && $('#postcode').val() != "" &&('#plaats').val() != "" ) {
-		var data = $("#klantToevoegen").serialize();
-		$.post("restservices/adres", data, function(response) {
-			console.log("U hebt succesvol kunnen registreren");
-		});
-		
-	} else {
-		alert("Niet alle velden zijn ingevuld of huisnummer moet een getal zijn!");
-	}
-
-	
-});
 </script>
 
 </html>
