@@ -2,6 +2,7 @@ package nl.hu.iac.webshop.model;
 
 import java.util.List;
 
+import nl.hu.iac.webshop.persistence.AanbiedingDAO;
 import nl.hu.iac.webshop.persistence.AdresDAO;
 import nl.hu.iac.webshop.persistence.CategorieDAO;
 import nl.hu.iac.webshop.persistence.KlantDAO;
@@ -12,9 +13,14 @@ public class WebshopService {
 	private CategorieDAO categorieDAO = new CategorieDAO();
 	private AdresDAO adresDAO = new AdresDAO();
 	private KlantDAO klantDAO = new KlantDAO();
+	private AanbiedingDAO aanbiedingDAO = new AanbiedingDAO();
 	
 	public List<Product> getAllProducten() {
 		return productDAO.findAll();
+	}
+	
+	public List<Aanbieding> getAllAanbiedingen() {
+		return aanbiedingDAO.findAll();
 	}
 	
 	public List<Categorie> getAllCategorie() {
