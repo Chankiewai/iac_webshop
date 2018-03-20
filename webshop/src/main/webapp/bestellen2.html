@@ -8,7 +8,7 @@
 <h1>Bestellijst</h1>
 	<form id="klantToevoegen">
 			<div class="form-group">
-			<label for="naam">Klantnaam: </label> 
+			<label for="naam" id="naam">Klantnaam: </label> 
 			</div>
 			<label for="straat">BestellingId:</label> 
 			
@@ -53,9 +53,12 @@ function loadGegevens() {
         tr.append("<td>totaalbedrag</td>");
 
         body.append(tr);
+        var klantgegevens = JSON.parse(window.sessionStorage.getItem("klantgegevens"));
         
-        
-
+        var klant = $("#naam");
+        klant.append(klantgegevens.naam);
+        console.log(klantgegevens);
+        console.log(klantgegevens.naam);
 }
 loadGegevens();
 </script>

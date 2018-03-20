@@ -38,8 +38,12 @@
 $("#post").click(function(response) {
 	if( $('#naam').val() != "" && $('#straat').val() != "" && $('#huisnummer').val() != "" && $('#postcode').val() != "" && $('#plaats').val() != "" ) {
 		var data = $("#klantToevoegen").serialize();
+		
 		$.post("restservices/adres", data, function(response) {
 			console.log("U hebt succesvol de gegevens ingevuld!");
+			var klantgegevens = { "naam": $('#naam').val() , "straat" : $('#straat').val(), "huisnummer" : $('#huisnummer').val(), "postcode" : $('#postcode').val(), "plaats" : $('#plaats').val() };
+			window.sessionStorage.setItem("klantgegevens", JSON.stringify(klantgegevens));
+
 			window.location.href = "/webshop/bestellen2.html";
 
 		});
