@@ -15,6 +15,7 @@
 			<h2>Winkelwagen</h2>
 			<div id='winkelwagen-item' class='winkelwagen'><a href='#'><button onclick='toonWinkelwagen()'>Winkelwagen</button></a></div>
 		</div>
+		
 		<div id="main">
 			<h1>Welkom bij 't virtuele winkeltje!</h1>
 			<p>
@@ -38,12 +39,29 @@
 				<a href='klanten.html'>klant toevoegen</a>
 			</p>
 			
+			
 		</div>
+		
+			<div class='wijzig_product'>
+				<form id="updateProduct">
+	        	<div id="updateNaam"></div><br/>
+		        <div id="updateOmschrijving"></div><br/>
+		        <div id="updatePrijs"></div><br/>
+		        <div id="updatePlaatje"></div><br/>
+		        <div id="updateCategorie">
+		        	<label>Categorie:</label>
+					<select id='categorie-select' name='categorie_id'></select>
+		        </div><br/>	 
+      			<label id="updateButton"></label>
+      			</form>
+			</div>
 	</div>
 </body>
 
 <script>
 $(document).ready(function(){
+	
+	$("#updateCategorie").hide();
 	
 	$.ajax({
 		method : 'GET',
@@ -72,7 +90,7 @@ $(document).ready(function(){
             	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen({'product_id' : " + data[i].product_id + ", 'product_naam' : '" + data[i].product_naam + "', 'product_prijs' : " + data[i].product_prijs + "})\">Voeg toe</button></a><button id='"+ data[i].product_id +"' class='deleteBtn'>Verwijder</button><button>Wijzig</button></div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>"+data[i].product_omschrijving+"</p><a href='#'><button onclick=\"updateWinkelwagen({'product_id' : " + data[i].product_id + ", 'product_naam' : '" + data[i].product_naam + "', 'product_prijs' : " + data[i].product_prijs + "})\">Voeg toe</button></a><button id='"+ data[i].product_id +"' class='deleteBtn'>Verwijder</button><button id='"+ data[i].product_id +"' class='updateBtn'>Wijzig</button></div>";
           		}
           		
           		body += "</div>"
@@ -104,18 +122,70 @@ $(document).ready(function(){
 	});
 	
 	$("#main").on("click", ".deleteBtn", function(e) { 
-		console.log('yolo');
         var uri = "restservices/product/" + $(e.target).attr("id");
         $.ajax(uri, {
             method: "DELETE",
             success: function() {
        			alert('Product succesvol verwijderd.');
+       			location.reload();
             },
             error: function () {
                 alert('Er is iets misgegaan.');
             }
         });
     });
+	
+	$(".wijzig_product").on("click", ".updateBtn", function(e) {     
+		var uri = "restservices/product/" + $(e.target).attr("id");
+        $.ajax(uri, {
+        method: "PUT",
+        data: $("#updateProduct").serialize(),
+        success: function() {
+            location.reload();
+        },
+        error: function () {
+            
+        }
+    });
+});
+
+	
+	$("#main").on("click", ".updateBtn", function(e) {
+        $.ajax({
+            method: "GET",
+            url: "restservices/product/" + $(e.currentTarget).attr("id"),
+            mimeType: 'json',
+            success: function(data) {
+            		$("#updateCategorie").show();
+            		$("#updateNaam").empty().append("<label>Product naam:</label><input type='text' id='product_naam' name='product_naam' value='" + data[0].product_naam + "'>");
+            		$("#updateOmschrijving").empty().append("<label>Product omschrijving:</label><input type='text' id='product_omschrijving' name='product_omschrijving' value='" + data[0].product_omschrijving + "'>");
+            		$("#updatePrijs").empty().append("<label>Prijs:</label><input type='number' id='product_prijs' name='product_prijs' value='" + data[0].product_prijs + "'>");
+            		
+            		$.ajax({
+            			method : 'GET',
+            			url : 'restservices/categorie',
+            			mimeType : 'json',
+            			success : function(data) {
+            				$.each(data, function(i, data) {
+            					$('#categorie-select').append("<option value='" + data.categorie_id + "'>" + data.categorie_id + " " + data.categorie_naam + "</option>");
+            				});
+            			},
+            			error : function() {
+
+            			}
+            		});
+            		
+            		$("#updatePlaatje").empty().append("<label>Product plaatje:</label><input type='text' id='product_plaatje' name='product_plaatje' value='" + data[0].product_plaatje + "'>");	
+            		$("#updateButton").empty().append("<button id='" + data[0].product_id + "' type='button' class='updateBtn'>Wijzigen</button>");
+            },
+            error: function (response) {
+                console.log("Er is iets misgegaan.");
+            }
+        });
+    });
+	
+	
+	
 	
 });
 

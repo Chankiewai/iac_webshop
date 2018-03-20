@@ -1,5 +1,7 @@
 package nl.hu.iac.webshop.webservices;
 
+import java.util.Locale.Category;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -13,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import nl.hu.iac.webshop.model.Categorie;
 import nl.hu.iac.webshop.model.Product;
 import nl.hu.iac.webshop.model.ServiceProvider;
 import nl.hu.iac.webshop.model.WebshopService;
@@ -51,7 +54,7 @@ public class ProductResource {
 	@GET
 	@Path("{code}")
 	@Produces("application/json")
-	public String getProduct(@PathParam("code") int id) { //specifiek een product opzoeken
+	public String getProduct(@PathParam("code") int id) {
 		WebshopService service = ServiceProvider.getWebshopService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 
@@ -118,14 +121,17 @@ public class ProductResource {
 	
 	@PUT
 	@Path("{product_id}")
-	public void updateLid(@PathParam("product_id") int product_id,
+	public void updateProduct(@PathParam("product_id") int product_id,
 								@FormParam("product_naam") String product_naam,
 								@FormParam("product_omschrijving") String product_omschrijving,
 								@FormParam("product_prijs") double product_prijs,
 								@FormParam("product_plaatje") String product_plaatje,
 								@FormParam("categorie_id") int categorie_id) {
-		Product updateProduct = new Product(product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id);
-		productDAO.updateProduct(updateProduct);
+		System.out.println(categorie_id);
+		WebshopService service = ServiceProvider.getWebshopService();
+		Categorie currentCategorie = service.getCategorieById(categorie_id);
+		Product updateProduct = new Product(product_id, product_naam, product_omschrijving, product_prijs, product_plaatje);
+		productDAO.updateProduct(updateProduct, currentCategorie);
 	}
 	
 	@DELETE
