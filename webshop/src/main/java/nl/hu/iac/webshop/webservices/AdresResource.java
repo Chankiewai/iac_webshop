@@ -50,6 +50,4 @@ public class AdresResource {
 		Klant newKlant = new Klant(naam);
 		dao.save(newAdres, newKlant);
 	}
-
-
 }

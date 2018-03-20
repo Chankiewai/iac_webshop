@@ -72,8 +72,7 @@ $(document).ready(function(){
             	body += "<div class='grid-container'>";	
             	
           		for (i=0; i<data.length; i++) {
-          			//console.log(data[i].product_naam);
-          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen({'product_id' : " + data[i].product_id + ", 'product_naam' : '" + data[i].product_naam + "', 'product_prijs' : " + data[i].product_prijs + "})\">Voeg toe</button></a><button>Verwijder</button><button>Wijzig</button></div>";
+          			body += "<div class='grid-item'>" + data[i].product_naam + "<br>€" + data[i].product_prijs + "<br><img src='" + data[i].product_plaatje + "' alt='Kan plaatje niet laden'</img><br><a href='#'><button onclick=\"updateWinkelwagen({'product_id' : " + data[i].product_id + ", 'product_naam' : '" + data[i].product_naam + "', 'product_prijs' : " + data[i].product_prijs + "})\">Voeg toe</button></a><button id='"+ data[i].product_id +"' class='deleteBtn'>Verwijder</button><button>Wijzig</button></div>";
           		}
           		
           		body += "</div>"
@@ -92,7 +91,7 @@ $(document).ready(function(){
 		mimeType : 'json',
 		success : function(data) {
 			$.each(data, function(i, data) {
-            	var body = "<div class='grid-container'>";	
+          			var body = "<div class='grid-container'>";	
           			body += "<div class='grid-item'>" + data.product_naam + "<br><strike>€" + data.product_prijs + "</strike> " + data.aanbieding_prijs + "<br><img src='" + data.product_plaatje + "' alt='Kan plaatje niet laden'</img><br><p>"+data.product_omschrijving+"</p><a href='#'><button>Voeg toe</button></a></div>";     		
           			body += "</div>"
           		$('.product_aanbieding').append(body);
@@ -103,6 +102,20 @@ $(document).ready(function(){
 			$('.product_aanbieding').append(body);
 		}
 	});
+	
+	$("#main").on("click", ".deleteBtn", function(e) { 
+		console.log('yolo');
+        var uri = "restservices/product/" + $(e.target).attr("id");
+        $.ajax(uri, {
+            method: "DELETE",
+            success: function() {
+       			alert('Product succesvol verwijderd.');
+            },
+            error: function () {
+                alert('Er is iets misgegaan.');
+            }
+        });
+    });
 	
 });
 

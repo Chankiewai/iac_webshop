@@ -1,9 +1,5 @@
 package nl.hu.iac.webshop.webservices;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -130,5 +126,13 @@ public class ProductResource {
 								@FormParam("categorie_id") int categorie_id) {
 		Product updateProduct = new Product(product_id, product_naam, product_omschrijving, product_prijs, product_plaatje, categorie_id);
 		productDAO.updateProduct(updateProduct);
+	}
+	
+	@DELETE
+	@Path("{product_id}")
+	public void deleteProduct(@PathParam("product_id") int product_id) {
+		WebshopService service = ServiceProvider.getWebshopService();
+		Product currentProduct = service.getProductById(product_id);
+		productDAO.deleteById(currentProduct);		
 	}
 }

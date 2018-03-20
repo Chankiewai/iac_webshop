@@ -68,4 +68,17 @@ public class ProductDAO extends BaseDAO {
 		} catch (SQLException sqle) { sqle.printStackTrace(); System.out.println("Er is iets mis gegaan!"); }
 		return product;
 	}
+	
+	public Product deleteById(Product p) {
+		  try (Connection con = super.getConnection()){
+			  Statement stmt = con.createStatement();
+			  String deleteProduct = "DELETE FROM product where product_id = " + p.getProductId() + "";
+			  stmt.executeUpdate(deleteProduct);
+			  
+			  String deleteAanbieding = "DELETE FROM aanbieding where product_id = " + p.getProductId() + "";
+			  stmt.executeUpdate(deleteAanbieding);
+				
+		  } catch (SQLException sqle) { sqle.printStackTrace(); }
+		  return p;
+	  }  
 }
