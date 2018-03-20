@@ -28,6 +28,7 @@
 
 <script>
 $("#post").click(function(response) {
+	if( $('#naam').val() != "" && $('#prijs').val() != "") {
 		var data = $("#productToevoegen").serialize();
 		$.post("restservices/product", data, function(response) {
 			console.log("U hebt succesvol kunnen registreren");
